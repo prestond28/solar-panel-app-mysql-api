@@ -4,7 +4,7 @@ const chai = use(chaiHttp)
 
 const request = chai.request.execute;
 
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwNzkzMTE4LCJleHAiOjE3NDA4Nzk1MTh9.yrNk63dkhGSoOX7Kzfdr3S8V0L82M70FHNbgah9lk08';
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQwODgxMTQwLCJleHAiOjE3NDA5Njc1NDB9.thOWR0PqrZ2JSX1fQyo2WXoaH5wHFdqhRkqBAzDqg-Y';
 
 describe('Auth API service', () => {
   // run one time then .skip once working
@@ -16,7 +16,7 @@ describe('Auth API service', () => {
     };
     const expected = { msg: 'New user created!' };
 
-    request('http://localhost:3000')
+    request('http://localhost:3001')
       .post('/api/auth/register')
       .send(testUser)
       .end((err, resp) => {
@@ -33,7 +33,7 @@ describe('Auth API service', () => {
     };
     const expected = { msg: 'User already exists!' };
 
-    request('http://localhost:3000')
+    request('http://localhost:3001')
       .post('/api/auth/register')
       .send(testUser)
       .end((err, resp) => {
@@ -49,7 +49,7 @@ describe('Auth API service', () => {
       email: 'admin@example.com',
     };
 
-    request('http://localhost:3000')
+    request('http://localhost:3001')
       .post('/api/auth/login')
       .send(testUser)
       .end((err, resp) => {
@@ -62,59 +62,59 @@ describe('Auth API service', () => {
   });
 });
 
-describe('Tasks API Service', () => {
-  it('should POST a single task', (done) => {
-    const newTask = {
-      user_id: '1',
-      task_name: 'New test task!',
-    };
-    const expected = { message: 'Added task successfully!' };
+describe('Data API Service', () => {
+  // it('should POST a single task', (done) => {
+  //   const newTask = {
+  //     user_id: '1',
+  //     task_name: 'New test task!',
+  //   };
+  //   const expected = { message: 'Added task successfully!' };
 
-  request('http://localhost:3000')
-      .post('/api/tasks')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send(newTask)
-      .end((err, resp) => {
-        expect(resp.status).to.be.eql(200);
-        expect(resp.body).to.be.eql(expected);
-        done();
-      });
-  });
+  // request('http://localhost:3001')
+  //     .post('/api/tasks')
+  //     .set('Authorization', `Bearer ${accessToken}`)
+  //     .send(newTask)
+  //     .end((err, resp) => {
+  //       expect(resp.status).to.be.eql(200);
+  //       expect(resp.body).to.be.eql(expected);
+  //       done();
+  //     });
+  // });
 
-  it('should GET all tasks', (done) => {
-    request('http://localhost:3000')
-      .get('/api/tasks')
-      .set('Authorization', `Bearer ${accessToken}`)
-      .end((err, resp) => {
-        expect(resp.status).to.be.eql(200);
-        expect(resp.body).to.be.a('array');
-        expect(resp.body.length).to.not.be.eql(0);
-        done();
-      });
-  });
-
-  it('should GET a single task', (done) => {
-    const expected = [
-      {
-        task_id: 1,
-        user_id: 1,
-        task_name: "New test task!",
-        created_date: "2025-03-01T18:32:44.000Z",
-        status: "pending",
-      },
-    ];
-
-  request('http://localhost:3000')
-      .get('/api/tasks/1')
+  it('should GET all data from energy table', (done) => {
+    request('http://localhost:3001')
+      .get('/api/data')
       .set('Authorization', `Bearer ${accessToken}`)
       .end((err, resp) => {
         expect(resp.status).to.be.eql(200);
         expect(resp.body).to.be.a('array');
         expect(resp.body.length).to.not.be.eql(0);
-        expect(resp.body).to.be.eql(expected);
         done();
       });
   });
+
+  // it('should GET a single row of data', (done) => {
+  //   const expected = [
+  //     {
+  //       task_id: 1,
+  //       user_id: 1,
+  //       task_name: "New test task!",
+  //       created_date: "2025-03-01T18:32:44.000Z",
+  //       status: "pending",
+  //     },
+  //   ];
+
+  // request('http://localhost:3001')
+  //     .get('/api/tasks/1')
+  //     .set('Authorization', `Bearer ${accessToken}`)
+  //     .end((err, resp) => {
+  //       expect(resp.status).to.be.eql(200);
+  //       expect(resp.body).to.be.a('array');
+  //       expect(resp.body.length).to.not.be.eql(0);
+  //       expect(resp.body).to.be.eql(expected);
+  //       done();
+  //     });
+  // });
 });
 
 
@@ -128,7 +128,7 @@ describe('User API service', () => {
       },
     ];
 
-  request('http://localhost:3000')
+  request('http://localhost:3001')
       .get('/api/user/me')
       .set('Authorization', `Bearer ${accessToken}`)
       .end((err, resp) => {
@@ -146,7 +146,7 @@ describe('User API service', () => {
 //     };
 //     const expected = { msg: 'Updated succesfully!' };
 
-//   request('http://localhost:3000')
+//   request('http://localhost:3001')
 //       .put('/api/user/me/update')
 //       .set('Authorization', `Bearer ${AccessToken}`)
 //       .send(updatedUser)
@@ -164,7 +164,7 @@ describe('User API service', () => {
 //     };
 //     const expected = { msg: 'Nothing to update...' };
 
-// request('http://localhost:3000')
+// request('http://localhost:3001')
 //       .put('/api/user/me/update')
 //       .set('Authorization', `Bearer ${token}`)
 //       .send(updatedUser)

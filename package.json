@@ -1,7 +1,7 @@
 {
-  "name": "class-app-web-server",
+  "name": "solar-panel-app-mysql-api",
   "version": "1.0.0",
-  "description": "restful api server for class app",
+  "description": "restful api server for solar panel app",
   "main": "index.js",
   "type": "module",
   "scripts": {
