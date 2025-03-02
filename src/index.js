@@ -5,11 +5,11 @@ import bodyParser from 'body-parser';
 
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
-import tasksRoutes from './routes/tasks.routes.js';
+import dataRoutes from './routes/data.routes.js';
 import { error404, error500 } from './middleware/errors.middleware.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const logLevel = process.env.LOG_LEVEL || 'dev';
 const env = process.env.NODE_ENV;
 
@@ -30,9 +30,9 @@ app.use(cors());
 // ************************************
 
 // Partial API endpoints
-app.use('/api/auth', authRoutes); // http://localhost:3000/api/auth
-app.use('/api/user', userRoutes); // http://localhost:3000/api/users
-app.use('/api/tasks', tasksRoutes); // http://localhost:3000/api/tasks
+app.use('/api/auth', authRoutes); // http://localhost:3001/api/auth
+app.use('/api/user', userRoutes); // http://localhost:3001/api/users
+app.use('/api/data', dataRoutes); // http://localhost:3001/api/data
 
 // Handle 404 requests
 app.use(error404);

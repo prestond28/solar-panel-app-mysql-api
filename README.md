@@ -1,1 +1,1 @@
-# class app mysql api
+# Back end service for solar panel app.

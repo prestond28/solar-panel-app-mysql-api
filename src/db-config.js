@@ -1,6 +1,6 @@
 import mysql from 'mysql';
 import { CREATE_USERS_TABLE } from './queries/user.queries.js';
-import { CREATE_TASKS_TABLE } from './queries/tasks.queries.js';
+import { CREATE_ENERGY_TABLE, LOAD_DATA_INTO_ENERGY_TABLE } from './queries/data.queries.js';
 import query from './utils/query.js';
 
 // Get the Host from Environment or use default
@@ -13,7 +13,7 @@ const user = process.env.DB_USER || 'root';
 const password = process.env.DB_PASS || 'password';
 
 // Get the Database from Environment or use default
-const database = process.env.DB_DATABASE || 'tododb';
+const database = process.env.DB_DATABASE || 'solardb';
 
 const connection = async () =>
   new Promise((resolve, reject) => {
@@ -22,6 +22,8 @@ const connection = async () =>
       user,
       password,
       database,
+      multipleStatements: true,
+      localInfile: true
     });
 
     con.connect((err) => {
@@ -46,7 +48,13 @@ const connection = async () =>
     }
   );
 
-  const tasksTableCreated = await query(_con, CREATE_TASKS_TABLE).catch(
+  const dataTableCreated = await query(_con, CREATE_ENERGY_TABLE).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+
+  const dataTableLoaded = await query(_con, LOAD_DATA_INTO_ENERGY_TABLE).catch(
     (err) => {
       console.log(err);
     }
