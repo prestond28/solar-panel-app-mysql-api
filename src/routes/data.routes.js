@@ -15,7 +15,9 @@ const dataRoutes = express.Router();
 /**
  * Routes for all data. Evaluates to `/data/`.
  */
-dataRoutes.get('/', canAccess, getAllData) //.post('/', canAccess, createData);
+
+// dataRoutes.get('/', canAccess, getAllData) .post('/', canAccess, createData);
+dataRoutes.get('/', getAllData)
 
 /**
  * Routes for a row of data by data_row_id. Evalutes to `/data/:data_row_id`.

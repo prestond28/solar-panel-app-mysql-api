@@ -13,7 +13,7 @@ import query from '../utils/query.js';
  * DELETE - Delete
  */
 
-// http://localhost:3001/data
+// http://localhost:3001/api/data
 export async function getAllData(req, res) {
   // establish connection
   const con = await connection().catch((err) => {
